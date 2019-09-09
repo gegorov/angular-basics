@@ -1,5 +1,7 @@
-<h1>Hello Angular World!</h1>
+<div class="container">
+    <h1>Hello Angular World!</h1>
 
-<p>
-    {{ now | date | uppercase }}
-</p>
+    <app-post-form (onAdd)="updatePosts($event)"></app-post-form>
+    <hr />
+    <app-post *ngFor="let p of posts" [post]="p"></app-post>
+</div>
