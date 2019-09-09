@@ -1,13 +1,36 @@
 <h1>Hello Angular World!</h1>
 
-<input type="text" [(ngModel)]="title" />
+<!-- <ul>
+    <li *ngFor="let item of someStrangeArray; let i = index">
+        {{ i + 1 }}
+        <strong>
+            {{ item }}
+        </strong>
+    </li>
+</ul> -->
 
-<p>{{ title }}</p>
-<button (click)="toggle = !toggle">Toggle</button>
-<button (click)="toggle = 42">Tricky Button</button>
-
-<div [ngSwitch]="toggle">
-    <p *ngSwitchCase="true" class="red">Lorem, ipsum.</p>
-    <p *ngSwitchCase="false" class="blue">Lorem ipsum dolor sit amet.</p>
-    <p *ngSwitchDefault>Default</p>
-</div>
+<ul style="list-style: none">
+    <li *ngFor="let post of someStrangeObjectsArray">
+        <p>
+            {{ post.title }} - <b>{{ post.author }}</b>
+        </p>
+        <ul style="list-style: none">
+            <li *ngFor="let comment of post.comments">
+                <div
+                    [ngStyle]="{
+                        border: '1px solid green',
+                        width: '200px',
+                        marginBottom: '5px'
+                    }"
+                >
+                    <small>
+                        {{ comment.name.toUpperCase() }}
+                    </small>
+                    <p>
+                        {{ comment.text }}
+                    </p>
+                </div>
+            </li>
+        </ul>
+    </li>
+</ul>
