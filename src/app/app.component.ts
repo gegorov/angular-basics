@@ -6,19 +6,10 @@ import { Component } from '@angular/core';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-    title = 'angular-basics';
-    inputValue = '';
+    title = 'aloha';
+    backgroundToggle = false;
 
-    constructor() {}
-
-    onInput(event: KeyboardEvent) {
-        console.log('Event ', event);
-        this.inputValue = (event.target as HTMLInputElement).value;
-    }
-    onClick() {
-        console.log('Clicked!');
-    }
-    onBlur(str: string) {
-        this.inputValue = str;
+    onInput(event: any) {
+        this.title = event.target.value;
     }
 }
