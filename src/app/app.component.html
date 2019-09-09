@@ -3,31 +3,13 @@
 <input type="text" [(ngModel)]="title" />
 
 <p>{{ title }}</p>
-<button (click)="backgroundToggle = !backgroundToggle">Toggle</button>
+<button (click)="toggle = !toggle">Toggle</button>
 
-<!-- <div
-    [ngStyle]="{
-        width: '200px',
-        height: '200px',
-        borderRadius: '5px',
-        border: '1px solid #ccc',
-        background: backgroundToggle ? 'red' : 'blue'
-    }"
-></div> -->
-
-<p
-    [ngClass]="{
-        red: backgroundToggle,
-        blue: !backgroundToggle
-    }"
->
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deserunt
-    ipsa alias, odio quisquam in nisi provident aut enim eius ex perferendis?
-    Ullam eaque adipisci alias quia veniam nihil quisquam.
+<p *ngIf="toggle; else blueP" class="red">
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Repudiandae, quam.
 </p>
-
-<p [class.blue]="!backgroundToggle" [class.red]="backgroundToggle">
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam deserunt
-    ipsa alias, odio quisquam in nisi provident aut enim eius ex perferendis?
-    Ullam eaque adipisci alias quia veniam nihil quisquam.
-</p>
+<ng-template #blueP>
+    <p class="blue">
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Nulla, culpa?
+    </p>
+</ng-template>

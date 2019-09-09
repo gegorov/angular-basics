@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
     title = 'aloha';
-    backgroundToggle = false;
+    toggle = false;
 
     onInput(event: any) {
         this.title = event.target.value;
