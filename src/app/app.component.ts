@@ -32,19 +32,7 @@ export class AppComponent implements OnInit {
         // },
     ];
 
-    ngOnInit(): void {
-        setTimeout(() => {
-            console.log('timeout');
-            console.log(this.posts);
-            this.posts[0] = {
-                ...this.posts[0],
-                title: 'changed BBWWAAAHHAHAH',
-                text: this.posts[0].text.toUpperCase(),
-            };
-
-            console.log(this.posts);
-        }, 5000);
-    }
+    ngOnInit(): void {}
 
     updatePosts(post: Post) {
         this.posts.unshift({
