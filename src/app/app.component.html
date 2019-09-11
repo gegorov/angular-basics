@@ -1,43 +1,16 @@
 <div class="container">
-    <h1>Hello Angular World!</h1>
+    <h1>Hello Pipes World!</h1>
 
-    <p
-        appStyle="red"
-        [dStyles]="{ border: '1px solid blue', borderRadius: '5px' }"
-    >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum,
-        veniam?
-    </p>
-    <p
-        appStyle="blue"
-        [dStyles]="{ border: '1px dashed red', borderRadius: '5px' }"
-    >
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum,
-        veniam?
-    </p>
-    <button class="btn" (click)="isVisible = !isVisible">Toggle</button>
-    <div *ngIf="isVisible" class="wrap">
+    <button class="btn" (click)="addPost()">
+        Add Post
+    </button>
+    <input type="text" [(ngModel)]="searchQuery" />
+    <div class="card" *ngFor="let post of posts | filter: searchQuery">
+        <h2>
+            {{ post.title | titlecase }}
+        </h2>
         <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum
-            quibusdam, distinctio quod modi odio cumque totam accusantium
-            officiis debitis saepe.
-        </p>
-    </div>
-    <ng-template [ngIf]="isVisible">
-        <div class="wrap">
-            <p>
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                Dolorum quibusdam, distinctio quod modi odio cumque totam
-                accusantium officiis debitis saepe.
-            </p>
-        </div>
-    </ng-template>
-
-    <div *appIfnot="!isVisible" class="wrap">
-        <p>
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum
-            quibusdam, distinctio quod modi odio cumque totam accusantium
-            officiis debitis saepe.
+            {{ post.text }}
         </p>
     </div>
 </div>
