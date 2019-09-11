@@ -1,16 +1,7 @@
 <div class="container">
     <h1>Hello Pipes World!</h1>
 
-    <button class="btn" (click)="addPost()">
-        Add Post
-    </button>
-    <input type="text" [(ngModel)]="searchQuery" />
-    <div class="card" *ngFor="let post of posts | filter: searchQuery">
-        <h2>
-            {{ post.title | titlecase }}
-        </h2>
-        <p>
-            {{ post.text }}
-        </p>
-    </div>
+    <p>Just wait.... {{ p | async }}</p>
+    <p>Date: {{ date }}</p>
+    <p>Date with async: {{ date$ | async }}</p>
 </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export interface Post {
     title: string;
@@ -10,44 +11,22 @@ export interface Post {
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
-    searchQuery = '';
+export class AppComponent implements OnInit {
+    p: Promise<string> = new Promise(resolve =>
+        setTimeout(() => resolve('THIS IS PROMISE!!!!'), 3000)
+    );
 
-    posts: Post[] = [
-        {
-            title: 'magic is happening',
-            text:
-                'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi, quia?',
-        },
-        {
-            title: 'This is kind of a Magic',
-            text: `Lorem ipsum, dolor sit amet consectetur adipisicing elit. Harum nostrum possimus
-                autem vitae est veritatis adipisci molestiae voluptates ex suscipit.`,
-        },
-        {
-            title: 'The show must go on',
-            text: `
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis dolores repellat
-                facilis totam iusto odio ipsam, temporibus libero soluta quasi autem nihil
-                architecto vitae nemo aspernatur at rem eum vel quo nulla sed impedit modi beatae.
-                Itaque labore, aliquid voluptates necessitatibus iusto praesentium ipsum omnis
-                accusantium placeat doloribus. Quia, totam?
-                `,
-        },
-        {
-            title: 'Radio ga ga',
-            text: `
-                I'd sit alone and watch your light
-                My only friend through teenage nights
-                And everything I had to know
-                I heard it on my radio`,
-        },
-    ];
+    date$: Observable<Date> = new Observable(obs => {
+        setInterval(() => {
+            obs.next(new Date());
+        }, 1000);
+    });
 
-    addPost() {
-        this.posts.unshift({
-            title: 'angular',
-            text: 'blablalbal blabla lab lab',
+    date: Date;
+
+    ngOnInit(): void {
+        this.date$.subscribe(date => {
+            this.date = date;
         });
     }
 }
