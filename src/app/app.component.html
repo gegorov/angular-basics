@@ -6,25 +6,25 @@
         <div class="form-control">
             <label>Email</label>
             <input type="text" placeholder="Email" formControlName="email" />
-            <pre>
-                {{ form.get('email').errors | json }}
-            </pre>
+
             <div class="validation" *ngIf="form.get('email').invalid && form.get('email').touched">
                 <small *ngIf="form.get('email').errors['required']">
                     Email field can not be empty
                 </small>
+                <small *ngIf="form.get('email').errors['restrictedEmail']">
+                    Email {{ form.get('email').value }} is restricted
+                </small>
+                <small *ngIf="form.get('email').errors['uniqEmail']">
+                    Email {{ form.get('email').value }} is already taken
+                </small>
 
-                <small>Please enter correct email</small>
+                <small *ngIf="form.get('email').errors['email']">Please enter correct email</small>
             </div>
         </div>
 
         <div class="form-control">
             <label>Password</label>
             <input type="password" placeholder="Password" formControlName="password" />
-
-            <pre>
-                    {{ form.get('password').errors | json }}
-            </pre>
 
             <div
                 class="validation"
@@ -43,13 +43,13 @@
             </div>
         </div>
 
-        <div class="card">
+        <div class="card" formGroupName="address">
             <h2>Address</h2>
 
             <div class="form-control">
                 <label>Country</label>
 
-                <select>
+                <select formControlName="country">
                     <option value="ru">Snowy Nigeria</option>
                     <option value="ua">Ukraine</option>
                     <option value="by">Belarus</option>
@@ -57,18 +57,21 @@
             </div>
 
             <div class="form-control">
-                <input type="text" />
+                <input type="text" formControlName="city" placeholder="city" />
             </div>
 
-            <button class="btn" type="button">Add capital</button>
+            <button class="btn" type="button" (click)="setCapital()">Add capital</button>
         </div>
 
-        <div class="card">
+        <div class="card" formGroupName="skills">
             <h2>Your Skills</h2>
-            <button class="btn" type="button">Add skills</button>
-            <div class="form-control">
-                <label></label>
-                <input type="text" />
+            <button class="btn" type="button" (click)="addSkill()">Add skills</button>
+            <div
+                class="form-control"
+                *ngFor="let control of form.get('skills')['controls']; let idx = index"
+            >
+                <label>Skill {{ idx + 1 }}</label>
+                <input type="text" [formControlName]="idx" />
             </div>
         </div>
 
