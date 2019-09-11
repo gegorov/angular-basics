@@ -1,7 +1,25 @@
 <div class="container">
-    <h1>Hello Pipes World!</h1>
+    <h1>Hello Services!</h1>
+    <div class="card">
+        <h2>App Counter: {{ appCounterService.counter }}</h2>
+        <button class="btn" (click)="appCounterService.decrease()">
+            -
+        </button>
+        <button class="btn" (click)="appCounterService.increase()">
+            +
+        </button>
+    </div>
+    <div class="card">
+        <h2>Local App Counter: {{ localCounterService.counter }}</h2>
+        <button class="btn" (click)="localCounterService.decrease()">
+            -
+        </button>
+        <button class="btn" (click)="localCounterService.increase()">
+            +
+        </button>
+    </div>
 
-    <p>Just wait.... {{ p | async }}</p>
-    <p>Date: {{ date }}</p>
-    <p>Date with async: {{ date$ | async }}</p>
+    <hr />
+
+    <app-counter></app-counter>
 </div>
