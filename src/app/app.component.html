@@ -1,11 +1,45 @@
 <div class="container">
-    <!-- <div>{{ form | json }}</div> -->
+    <h1>Angular HttpClient</h1>
 
-    <h1>Angular Forms</h1>
+    <div class="card">
+        <div class="form-control">
+            <input type="text" placeholder="name" [(ngModel)]="todoTitle" />
+        </div>
+        <button class="btn" (click)="addTodo()">Add</button>
+        <button class="btn" (click)="fetchTodos()">Upload</button>
+    </div>
 
-    <app-switch [(ngModel)]="appState" (ngModelChange)="handleChange()"></app-switch>
     <hr />
-    <p>
-        {{ appState }}
-    </p>
+    <div *ngIf="!loading; else loadingBlock">
+        <div class="card" *ngFor="let todo of todos">
+            <p>
+                <span [class.completed]="todo.completed">
+                    {{ todo.title | titlecase }}
+                </span>
+                <span>
+                    <button class="btn btn-danger">Delete</button>
+                    <button class="btn" [disabled]="todo.completed">Finish</button>
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <ng-template #loadingBlock>
+        <div class="spinner-wrapper">
+            <div class="lds-spinner">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </ng-template>
 </div>
