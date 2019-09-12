@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { delay } from 'rxjs/operators';
+import { Todo, TodosService } from './todos.servers';
 
-export interface Todo {
-    completed: boolean;
-    title: string;
-    id?: number;
-}
 @Component({
     selector: 'app-root',
     templateUrl: './app.component.html',
@@ -14,11 +9,11 @@ export interface Todo {
 })
 export class AppComponent implements OnInit {
     todos: Todo[] = [];
-
+    error = '';
     todoTitle = '';
     loading = false;
 
-    constructor(private http: HttpClient) {}
+    constructor(private todosService: TodosService) {}
 
     ngOnInit() {
         this.fetchTodos();
@@ -33,24 +28,35 @@ export class AppComponent implements OnInit {
             title: this.todoTitle,
             completed: false,
         };
-        console.log('newtodo: ', newTodo);
-        this.http
-            .post<Todo>('https://jsonplaceholder.typicode.com/todos', newTodo)
-            .subscribe(todo => {
-                console.log('todo: ', todo);
-                this.todos.push(todo);
-                this.todoTitle = '';
-            });
+
+        this.todosService.addTodo(newTodo).subscribe(todo => {
+            this.todos.push(todo);
+            this.todoTitle = '';
+        });
     }
 
     fetchTodos() {
         this.loading = true;
-        this.http
-            .get<Todo[]>('https://jsonplaceholder.typicode.com/todos?_limit=3')
-            .pipe(delay(1500))
-            .subscribe(response => {
+        this.todosService.fetchTodos().subscribe(
+            response => {
                 this.todos = response;
                 this.loading = false;
-            });
+            },
+            error => {
+                this.error = error.message;
+            }
+        );
+    }
+
+    deleteTodo(id: number) {
+        this.todosService.deleteTodo(id).subscribe(() => {
+            this.todos = this.todos.filter(t => t.id !== id);
+        });
+    }
+
+    completeTodo(id: number) {
+        this.todosService.completeTodo(id).subscribe(todo => {
+            this.todos.find(t => t.id === id).completed = true;
+        });
     }
 }
