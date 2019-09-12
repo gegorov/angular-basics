@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { delay, catchError } from 'rxjs/operators';
 
@@ -14,17 +14,25 @@ export class TodosService {
     constructor(private http: HttpClient) {}
 
     addTodo(todo: Todo): Observable<Todo> {
-        return this.http.post<Todo>('https://jsonplaceholder.typicode.com/todos', todo);
+        return this.http.post<Todo>('https://jsonplaceholder.typicode.com/todos', todo, {
+            headers: new HttpHeaders({
+                myCustomHeader: 'hello',
+            }),
+        });
     }
 
     fetchTodos(): Observable<Todo[]> {
-        return this.http.get<Todo[]>('https://jsonplaceholder.typicode.com/todos9?_limit=3').pipe(
-            delay(500),
-            catchError(error => {
-                console.log('Error: ', error.message);
-                return throwError(error);
+        return this.http
+            .get<Todo[]>('https://jsonplaceholder.typicode.com/todos', {
+                params: new HttpParams().set('_limit', '5'),
             })
-        );
+            .pipe(
+                delay(500),
+                catchError(error => {
+                    console.log('Error: ', error.message);
+                    return throwError(error);
+                })
+            );
     }
 
     deleteTodo(id: number): Observable<void> {
