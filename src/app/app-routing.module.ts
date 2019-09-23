@@ -6,17 +6,20 @@ import { PostsComponent } from './posts/posts.component';
 import { PostComponent } from './post/post.component';
 import { AboutExtraComponent } from './about-extra/about-extra.component';
 import { ErrorPageComponent } from './error-page/error-page.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
     { path: '', component: HomeComponent },
     {
         path: 'about',
         component: AboutComponent,
+        canActivateChild: [AuthGuard],
         children: [{ path: 'extra', component: AboutExtraComponent }],
     },
     {
         path: 'posts',
         component: PostsComponent,
+        canActivate: [AuthGuard],
     },
     {
         path: 'posts/:id',
