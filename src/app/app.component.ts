@@ -1,6 +1,6 @@
 import { Component, ComponentFactoryResolver, ViewChild } from '@angular/core';
 import { ModalComponent } from './modal/modal.component';
-import { RefDerective } from './ref.directive';
+import { RefDirective } from './ref.directive';
 import { Title, Meta } from '@angular/platform-browser';
 
 @Component({
@@ -9,7 +9,7 @@ import { Title, Meta } from '@angular/platform-browser';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-    @ViewChild(RefDerective, { static: false }) refDir: RefDerective;
+    @ViewChild(RefDirective, { static: false }) refDir: RefDirective;
     constructor(
         private resolver: ComponentFactoryResolver,
         private title: Title,

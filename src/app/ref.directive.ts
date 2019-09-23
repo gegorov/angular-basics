@@ -3,6 +3,6 @@ import { Directive, ViewContainerRef } from '@angular/core';
 @Directive({
     selector: '[appRef]',
 })
-export class RefDerective {
+export class RefDirective {
     constructor(public containerRef: ViewContainerRef) {}
 }
