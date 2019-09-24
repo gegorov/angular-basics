@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { Subscription, Observable } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { Subscription, Subject } from 'rxjs';
 
 @Component({
     selector: 'app-root',
@@ -8,36 +7,22 @@ import { map, filter } from 'rxjs/operators';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
+    counter = 0;
     sub: Subscription;
+    stream$: Subject<number> = new Subject<number>();
 
     constructor() {
-        const stream$ = new Observable(observer => {
-            setTimeout(() => {
-                observer.next(1);
-            }, 1500);
-            setTimeout(() => {
-                observer.error('Something went wrong');
-            }, 2000);
-            setTimeout(() => {
-                observer.complete();
-            }, 2100);
-            setTimeout(() => {
-                observer.next(2);
-            }, 2500);
+        this.sub = this.stream$.subscribe(value => {
+            console.log('Subscribe: ', value);
         });
-
-        this.sub = stream$.subscribe(
-            value => {
-                console.log('next: ', value);
-            },
-            error => {
-                console.log('error: ', error);
-            },
-            () => console.log('Completed!')
-        );
     }
 
     stop() {
         this.sub.unsubscribe();
+    }
+
+    next() {
+        this.counter++;
+        this.stream$.next(this.counter);
     }
 }
